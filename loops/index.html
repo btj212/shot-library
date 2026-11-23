@@ -141,7 +141,7 @@ async function openM(id){const e=E.find(z=>z.id==id);if(!e)return;lastF=document
  const h=new URLSearchParams(location.hash.slice(1));h.set('open',id);history.replaceState(null,'','#'+h);
  if(e.full){try{const u=await media(FB+e.full,e.fmt);if(!$('#lb').classList.contains('on')||$('#lb').dataset.id!=id)return;
    $('#lbm').innerHTML=e.fmt=='video/mp4'?`<video src="${u}" controls autoplay muted loop playsinline ${lp&&e.mt!='video/mp4'?`poster="${lp}"`:''}></video>`:`<img alt="${esc(e.title)}" src="${u}">`;guard(true);
-   const v=$('#lbm video');if(v)setTimeout(()=>{if(live()&&v.isConnected&&v.readyState<2)showPH('Full shot didn\'t load, showing '+(e.mt=='video/mp4'?'loop':'preview'))},15000)}
+   const v=$('#lbm video');if(v)setTimeout(()=>{if(live()&&v.isConnected&&v.readyState<1&&v.networkState===3)showPH('Full shot didn\'t load, showing '+(e.mt=='video/mp4'?'loop':'preview'))},15000)}
   catch(err){console.error(err);showPH('Full shot unavailable, showing '+(e.mt=='video/mp4'?'loop':'preview'))}}else if(!ph)$('#lbm').innerHTML=NA}
 function closeM(){if(!$('#lb').classList.contains('on'))return;$('#lb').classList.remove('on');$('#lbm').innerHTML='';document.documentElement.classList.remove('lock');
  const h=new URLSearchParams(location.hash.slice(1));h.delete('open');history.replaceState(null,'','#'+h);
